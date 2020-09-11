@@ -20,7 +20,7 @@ sm --start PLATOPS_EXAMPLE_UI_TESTS -r
 
 ## Logging
 
-The template uses `logback.xml` to configure the log levels. The file an be find within `src/test/resources`. The default log level is *WARN*. This can be updated to use a lower level for example *TRACE* to view the requests and response for any investigation.
+The template uses [logback.xml](src/test/resources) to configure log levels. The default log level is *WARN*. This can be updated to use a lower level for example *TRACE* to view the requests sent and responses received during the test.
 
 #### Smoke test
 
