@@ -18,6 +18,10 @@ docker run --rm -d --name mongo -d -p 27017:27017 mongo:3.6
 sm --start PLATOPS_EXAMPLE_UI_TESTS -r
 ```
 
+## Logging
+
+The template uses `logback.xml` to configure the log levels. The file an be find within `src/test/resources`. The default log level is *WARN*. This can be updated to use a lower level for example *TRACE* to view the requests and response for any investigation.
+
 #### Smoke test
 
 It might be useful to try the journey with one user to check that everything works fine before running the full performance test
@@ -25,9 +29,9 @@ It might be useful to try the journey with one user to check that everything wor
 sbt -Dperftest.runSmokeTest=true -DrunLocal=true gatling:test
 ```
 
-#### Run the performance test
+#### Running the performance test
 ```
-sbt gatling:test
+sbt -DrunLocal=true gatling:test
 ```
 ### Run the example test against staging environment
 
