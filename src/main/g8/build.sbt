@@ -10,6 +10,5 @@ lazy val root = (project in file("."))
     // Enabling sbt-auto-build plugin provides DefaultBuildSettings with default `testOptions` from `sbt-settings` plugin.
     // These testOptions are not compatible with `sbt gatling:test`. So we have to override testOptions here.
     testOptions in Test := Seq.empty,
-    libraryDependencies ++= Dependencies.test,
-    resolvers ++= Seq(Resolver.bintrayRepo("hmrc", "releases"))
+    libraryDependencies ++= Dependencies.test
   )
