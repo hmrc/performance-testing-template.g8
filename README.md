@@ -64,3 +64,8 @@ Copy `tests/test-performance-testing-template.sh` to the parent directory of you
     ./test-performance-testing-template.sh
 
 **Note:** At present these tests create different types of projects off the template, and run the performance tests off those projects.  No assertions are made to ensure that the test ran and passed, you will have to consult the logs to ensure that the tests ran successfully.
+
+### Scalafmt
+The generated template has already been formatted using scalafmt as well as containing a `.scalafmt.conf` configuration and sbt scalafmt plugin ready for teams to use. 
+
+Currently formatting the files to include in a generated project is a manual task. This involves generating a new template from this project, formatting the generated files and then updating this repository to reflect the new formatting.

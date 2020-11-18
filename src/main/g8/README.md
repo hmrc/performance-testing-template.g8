@@ -43,3 +43,20 @@ sbt -Dperftest.runSmokeTest=true -DrunLocal=false gatling:test
 #### Run the performance test
 
 To run a full performance test against staging environment, implement a job builder and run the test **only** from Jenkins.
+
+### Scalafmt
+ This repository uses [Scalafmt](https://scalameta.org/scalafmt/), a code formatter for Scala. The formatting rules configured for this repository are defined within [.scalafmt.conf](.scalafmt.conf).
+ 
+ To apply formatting to this repository using the configured rules in [.scalafmt.conf](.scalafmt.conf) execute:
+ 
+ ```
+ sbt scalafmtAll
+ ```
+ 
+ To check files have been formatted as expected execute:
+ 
+ ```
+ sbt scalafmtCheckAll scalafmtSbtCheck
+ ```
+
+[Visit the official Scalafmt documentation to view a complete list of tasks which can be run.](https://scalameta.org/scalafmt/docs/installation.html#task-keys)
