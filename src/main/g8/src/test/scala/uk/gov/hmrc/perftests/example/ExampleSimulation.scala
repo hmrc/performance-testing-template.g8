@@ -10,11 +10,11 @@ import uk.gov.hmrc.perftests.example.ExampleRequests._
 
 class ExampleSimulation extends PerformanceTestRunner {
 
-  setup("home-page", "Home Page") withRequests (navigateToHomePage)
+  setup("home-page", "Home Page") withRequests navigateToHomePage
 
-  setup("post-vat-return-period", "Post vat return period") withRequests (postVatReturnPeriod)
+  setup("post-vat-return-period", "Post vat return period") withRequests postVatReturnPeriod
 
-  setup("get-turnover-page", "Get turnover page") withRequests (getTurnoverPage)
+  setup("get-turnover-page", "Get turnover page") withRequests getTurnoverPage
 
   runSimulation()
 }

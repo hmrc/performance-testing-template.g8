@@ -13,27 +13,24 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 object ExampleRequests extends ServicesConfiguration {
 
   val baseUrl: String = baseUrlFor("example-frontend")
-  val route: String = "/check-your-vat-flat-rate"
+  val route: String   = "/check-your-vat-flat-rate"
 
-  val navigateToHomePage: HttpRequestBuilder = {
+  val navigateToHomePage: HttpRequestBuilder =
     http("Navigate to Home Page")
       .get(s"\$baseUrl\$route/vat-return-period")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-  }
 
-  val postVatReturnPeriod: HttpRequestBuilder = {
+  val postVatReturnPeriod: HttpRequestBuilder =
     http("Post VAT return Period")
       .post(s"\$baseUrl\$route/vat-return-period": String)
       .formParam("vatReturnPeriod", s"\$\${vatReturnPeriod}")
       .formParam("csrfToken", s"\$\${csrfToken}")
       .check(status.is(303))
       .check(header("Location").is("/check-your-vat-flat-rate/turnover").saveAs("turnOverPage"))
-  }
 
-  val getTurnoverPage: HttpRequestBuilder = {
+  val getTurnoverPage: HttpRequestBuilder =
     http("Get Turnover Page")
       .get(s"\$baseUrl\$\${turnOverPage}": String)
       .check(status.is(200))
-  }
 }
