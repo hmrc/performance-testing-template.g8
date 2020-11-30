@@ -14,7 +14,7 @@ start_mongo_container() {
 
 ## Services
 start_mongo_container
-sm --start PLATOPS_EXAMPLE_UI_TESTS -r
+sm --start PLATFORM_EXAMPLE_UI_TESTS -r
 
 # Test 1 - local, cucumber
 g8 file://performance-testing-template.g8/ --name=test-1
@@ -32,5 +32,5 @@ cd - || exit
 rm -rf test-1
 
 # TEAR DOWN
-sm --stop PLATOPS_EXAMPLE_UI_TESTS
+sm --stop PLATFORM_EXAMPLE_UI_TESTS
 docker stop mongo
