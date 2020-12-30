@@ -43,7 +43,7 @@ The example tests created by this template use the vat-flat-rate-calculator-fron
     VAT_FLAT_RATE_CALC_FRONTEND
 
 ## Development
-If you'd like to contribute to the performance-testing-template you'll need to test your changes before raising a PR (see below).  
+To contribute to the performance-testing-template you'll need to test your changes locally before raising a PR (see below).  
 
 ### Generating a Performance Test project from you local changes
 To create a test project from your local changes, execute the following command from the parent directory of your local copy of the template:
@@ -53,29 +53,16 @@ To create a test project from your local changes, execute the following command 
 This will create a new performance test project in a folder named `my-test-project/`.  
  
 ### Running the performance-testing-template.g8 tests
-There are test scripts (written in bash) in the `tests/` folder which can run performance tests against the different test-environments.  To successfully run the tests you will need to satisfy the following pre-requisites: 
+A shell script is available to generate a repository from the template and run a smoke test 
+from the newly created repository. Steps to run this script are documented here:
+[./test-performance-testing-template.sh](test-performance-testing-template.sh)
 
-- [Install Giterate CLI](#install-giterate)
-- Install and configure [Service Manager](https://github.com/hmrc/service-manager) (see Confluence)
-- Install Mongo (see Confluence)
-
-Copy `tests/test-performance-testing-template.sh` to the parent directory of your local copy of the performance-testing-template.g8 project.  Execute the script without params:
-
-    ./test-performance-testing-template.sh
-
-**Note:** At present these tests create different types of projects off the template, and run the performance tests off those projects.  No assertions are made to ensure that the test ran and passed, you will have to consult the logs to ensure that the tests ran successfully.
+**Note:** The script does not include any assertions to ensure that the tests are passing. You will have to consult the 
+output to ensure that the tests ran successfully.
 
 #### Testing in CI
-The bash script [test-in-ci.sh](test-in-ci.sh) is used to test the performance-testing-template.g8 template
-in a pipeline via a PR builder before merging changes to master. The script generates a new repository for the
-provided template type, and runs a smoke performance test.
-
-```
-./test-in-ci.sh
-```
-
-This script can be also used to run locally in an engineer's machine but it does not provide the necessary set up by default.
-Use [test-performance-testing-template.sh](src/test/test-performance-testing-template.sh) instead.
+In CI, [./test-performance-testing-template.sh](test-performance-testing-template.sh) is used to test the 
+performance-testing-template.g8 template in a pipeline via a PR builder before merging changes to master. 
 
 ### Scalafmt
 The generated template has already been formatted using scalafmt as well as containing a `.scalafmt.conf` configuration and sbt scalafmt plugin ready for teams to use. 
