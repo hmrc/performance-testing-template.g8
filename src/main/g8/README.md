@@ -18,6 +18,8 @@ docker run --rm -d --name mongo -d -p 27017:27017 mongo:3.6
 sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
 ```
 
+Using the `--wait 100` argument ensures a health check is run on all the services started as part of the profile. `100` refers to the given number of seconds to wait for services to pass health checks.
+
 ## Logging
 
 The template uses [logback.xml](src/test/resources) to configure log levels. The default log level is *WARN*. This can be updated to use a lower level for example *TRACE* to view the requests sent and responses received during the test.
