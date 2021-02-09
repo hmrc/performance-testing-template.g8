@@ -15,8 +15,10 @@ Run the following command to start the services locally:
 ```
 docker run --rm -d --name mongo -d -p 27017:27017 mongo:3.6
 
-sm --start PLATFORM_EXAMPLE_UI_TESTS -r
+sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
 ```
+
+Using the `--wait 100` argument ensures a health check is run on all the services started as part of the profile. `100` refers to the given number of seconds to wait for services to pass health checks.
 
 ## Logging
 
