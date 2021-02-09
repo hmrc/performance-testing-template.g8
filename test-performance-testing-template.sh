@@ -57,7 +57,7 @@ local_setup() {
   fi
 
   print "INFO: Starting SM profile"
-  sm --start PLATFORM_EXAMPLE_UI_TESTS -r
+  sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
 }
 
 #Creates a sandbox folder to generate test repository
