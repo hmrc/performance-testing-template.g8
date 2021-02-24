@@ -46,6 +46,14 @@ sbt -Dperftest.runSmokeTest=true -DrunLocal=false gatling:test
 
 To run a full performance test against staging environment, implement a job builder and run the test **only** from Jenkins.
 
+### Gatling - PauseBuilder
+Sometimes you might wish to `pause` before or after requests in order to simulate the behaviour of a "user"
+thinking before taking their next action. [ExampleSimulation](src/test/scala/uk/gov/hmrc/perftests/example/ExampleSimulation.scala) 
+demonstrates a simple example of introducing a pause before a request, set for a fixed pause duration.
+
+To view further information on `pause` including using fixed pause and uniform random pause durations,
+please visit the [Gatling documentation](https://gatling.io/docs/current/general/scenario/#scenario-pause).
+
 ### Scalafmt
  This repository uses [Scalafmt](https://scalameta.org/scalafmt/), a code formatter for Scala. The formatting rules configured for this repository are defined within [.scalafmt.conf](.scalafmt.conf).
  
