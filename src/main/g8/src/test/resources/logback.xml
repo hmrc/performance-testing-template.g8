@@ -2,19 +2,21 @@
 <configuration>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <immediateFlush>false</immediateFlush>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{15} - %msg%n%rEx</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{65} - %msg%n%rEx</pattern>
         </encoder>
+        <immediateFlush>false</immediateFlush>
     </appender>
 
-    <!-- Uncomment for logging ALL HTTP request and responses -->
-     <!--<logger name="io.gatling.http" level="TRACE" />-->
-    <!-- Uncomment for logging ONLY FAILED HTTP request and responses -->
-    <!--<logger name="io.gatling.http" level="DEBUG" />-->
+    <!-- uncomment and set to DEBUG to log all failing HTTP requests -->
+    <!-- uncomment and set to TRACE to log all HTTP requests -->
+    <!--<logger name="io.gatling.http.engine.response" level="TRACE" />-->
+
+    <!-- Sets the performance-test-runner log level-->
+    <logger name="uk.gov.hmrc.performance" level="INFO"/>
 
     <root level="WARN">
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="CONSOLE"/>
     </root>
 
 </configuration>
