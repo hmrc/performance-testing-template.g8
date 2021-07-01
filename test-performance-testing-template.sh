@@ -52,7 +52,7 @@ local_setup() {
   if docker ps | grep "mongo"; then
     print "INFO: Mongo container is already running"
   else
-    docker run --rm -d --name mongo -p 27017:27017 mongo:3.6
+    docker run --rm -d --name mongo -p 27017:27017 mongo:4.0
     print "INFO: Mongo container started"
   fi
 
