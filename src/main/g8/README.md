@@ -13,7 +13,7 @@ Prior to executing the tests ensure you have:
 
 Run the following command to start the services locally:
 ```
-docker run --rm -d --name mongo -d -p 27017:27017 mongo:3.6
+docker run --rm -d --name mongo -d -p 27017:27017 mongo:4.0
 
 sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
 ```
