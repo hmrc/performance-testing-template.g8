@@ -24,7 +24,7 @@ You will need to have giter8 installed in order to generate a test suite from th
 
 Instructions to install giter8 can be found [here](http://www.foundweekends.org/giter8/setup.html).
 
-### Generating a Performance Test project from master
+### Generating a Performance Test project from main
 To generate a test suite, execute the following command in the parent directory of where you'd like your Performance Test project created:
     
     g8 hmrc/performance-testing-template.g8
@@ -62,7 +62,7 @@ output to ensure that the tests ran successfully.
 
 #### Testing in CI
 In CI, [./test-performance-testing-template.sh](test-performance-testing-template.sh) is used to test the 
-performance-testing-template.g8 template in a pipeline via a PR builder before merging changes to master. 
+performance-testing-template.g8 template in a pipeline via a PR builder before merging changes to main. 
 
 ### Scalafmt
 The generated template has already been formatted using scalafmt as well as containing a `.scalafmt.conf` configuration and sbt scalafmt plugin ready for teams to use. 
