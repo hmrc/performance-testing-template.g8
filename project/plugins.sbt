@@ -1,1 +1,2 @@
-addSbtPlugin("org.foundweekends.giter8" %% "sbt-giter8" % "0.11.0-M3")
+addSbtPlugin("org.foundweekends.giter8" %% "sbt-giter8" % "0.14.0")
+
