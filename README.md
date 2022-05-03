@@ -17,12 +17,14 @@ This repository is supported by HMRC Digital's Test Community. If you have a que
 If you'd like to contribute we welcome you to raise a PR or issue against the project and notify one of the core maintainers in #community-testing.
 
 ## Generating a Performance Test project
-You **DO NOT** need to clone this project to generate a performance test project from the template. You simply need to have giter8 installed, and run the `g8` command below.
+> Any new repository within HMRC GitHub organisation can **only** be created from a Jenkins job.
+> The below instructions are only to create a repository locally.
 
-### [Install giter8 CLI](#install-giterate) 
-You will need to have giter8 installed in order to generate a test suite from the performance-testing-template. Due to some limitations with the SBT giter8 plugin, unfortunately this template will not generate successfully. 
+You **DO NOT** need to clone this project to generate a performance test project from the template. You simply need to have
+giter8 installed, and run the `g8` command below.
 
-Instructions to install giter8 can be found [here](http://www.foundweekends.org/giter8/setup.html).
+### Install giter8 CLI 
+Instructions to install giter8 can be found in the official [setup page](http://www.foundweekends.org/giter8/setup.html).
 
 ### Generating a Performance Test project from main
 To generate a test suite, execute the following command in the parent directory of where you'd like your Performance Test project created:
@@ -31,6 +33,17 @@ To generate a test suite, execute the following command in the parent directory 
 
 This will prompt you for:
 - **name** -> The name of the performance test repository.  I.e. my-digital-service-performance-tests
+
+#### Before using the generated template
+The generated template uses [sbt-auto-build](https://github.com/hmrc/sbt-auto-build) plugin which requires below additional setup in order to use the generated project.
+* Add a LICENSE file to the root of the newly created repository. An example [LICENSE](https://raw.githubusercontent.com/hmrc/performance-testing-template.g8/main/LICENSE) file.
+* Add a repository.yaml file to the root of the newly created repository. An example [repository.yaml](https://raw.githubusercontent.com/hmrc/performance-testing-template.g8/main/repository.yaml) file.
+* Initialise the newly created repository to use Git `git init`
+* Commit the changes locally. It is not required to push the changes.
+
+To execute the example tests, follow the steps in the project README.md
+
+> NOTE: When using Jenkins to create a repository with this template, the above steps are completed automatically by the Jenkins job.
 
 To execute the example tests, follow the steps in the project README.md
 
