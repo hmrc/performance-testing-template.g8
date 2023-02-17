@@ -5,7 +5,7 @@ This repository can be used by teams who are in need of a performance test suite
 
 The performance-testing-template.g8 is developed and tested using:
 * Java 1.8
-* Scala 2.12.11
+* Scala 2.13.10
 * sbt 1.3.12
 * giter8 0.11.0-M3
 
