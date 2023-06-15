@@ -7,8 +7,6 @@ The performance-testing-template.g8 is developed and tested using:
 * Java 1.8
 * Scala 2.13.10
 * sbt 1.3.12
-* giter8 0.11.0-M3
-
 
 ## Support
 This repository is supported by HMRC Digital's Test Community. If you have a query or find an issue please drop in to the #community-testing channel in Slack.
@@ -21,15 +19,12 @@ If you'd like to contribute we welcome you to raise a PR or issue against the pr
 > The below instructions are only to create a repository locally.
 
 You **DO NOT** need to clone this project to generate a performance test project from the template. You simply need to have
-giter8 installed, and run the `g8` command below.
-
-### Install giter8 CLI 
-Instructions to install giter8 can be found in the official [setup page](http://www.foundweekends.org/giter8/setup.html).
+sbt installed, and run the `sbt new` command below.
 
 ### Generating a Performance Test project from main
 To generate a test suite, execute the following command in the parent directory of where you'd like your Performance Test project created:
     
-    g8 hmrc/performance-testing-template.g8
+    sbt new hmrc/performance-testing-template.g8
 
 This will prompt you for:
 - **name** -> The name of the performance test repository.  I.e. my-digital-service-performance-tests
@@ -61,7 +56,7 @@ To contribute to the performance-testing-template you'll need to test your chang
 ### Generating a Performance Test project from you local changes
 To create a test project from your local changes, execute the following command from the parent directory of your local copy of the template:
 
-    g8 file://performance-testing-template.g8/ --name=my-test-project
+    sbt new file://performance-testing-template.g8/ --name=my-test-project
 
 This will create a new performance test project in a folder named `my-test-project/`.  
  

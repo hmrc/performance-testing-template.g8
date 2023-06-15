@@ -11,13 +11,13 @@ Performance test suite for the `<digital service name>`, using [performance-test
 Start Mongo Docker container as follows:
 
 ```bash
-docker run --rm -d --name mongo -d -p 27017:27017 mongo:4.0
+docker run --rm -d -p 27017:27017 --name mongo mongo:4.4
 ```
 
 Start `PLATFORM_EXAMPLE_UI_TESTS` services as follows:
 
 ```bash
-sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
+sm2 --start PLATFORM_EXAMPLE_UI_TESTS
 ```
 
 ### Logging

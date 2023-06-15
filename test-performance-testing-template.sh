@@ -5,7 +5,6 @@
 # Prerequisite:
 # The script expects the following to be installed already:
 # - Service Manager
-# - Giter8
 #
 # What does the script do?
 # - When the TEST_ENVIRONMENT variable is set to 'local', the script sets up and tears down the local environment by:
@@ -52,12 +51,12 @@ local_setup() {
   if docker ps | grep "mongo"; then
     print "INFO: Mongo container is already running"
   else
-    docker run --rm -d --name mongo -p 27017:27017 mongo:4.0
+    docker run --rm -d -p 27017:27017 --name mongo mongo:4.4
     print "INFO: Mongo container started"
   fi
 
   print "INFO: Starting SM profile"
-  sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
+  sm2 --start PLATFORM_EXAMPLE_UI_TESTS
 }
 
 #Creates a sandbox folder to generate test repository
@@ -65,8 +64,8 @@ setup_sandbox() {
   print "INFO: Running 'SBT clean' command to clean the target folder"
   sbt clean
 
-  print "INFO: Setting TEMPLATE_DIRECTORY as $PWD"
   TEMPLATE_DIRECTORY=$PWD
+  print "INFO: Setting TEMPLATE_DIRECTORY as $TEMPLATE_DIRECTORY"
   SANDBOX="$TEMPLATE_DIRECTORY/target/sandbox"
   REPO_NAME="example-performance-test"
 
@@ -77,7 +76,9 @@ setup_sandbox() {
 
 generate_repo_from_template() {
   print "INFO: Using performance-testing-template.g8 to generate new test repository: $REPO_NAME."
-  g8 file:///$TEMPLATE_DIRECTORY --name="$REPO_NAME"
+  # ensure template ends with `.g8` (which is not the case for Jenkins pr-builders) otherwise `sbt new` with fail with "Template not found"
+  ln -s $TEMPLATE_DIRECTORY $TEMPLATE_DIRECTORY.g8
+  sbt new file:///$TEMPLATE_DIRECTORY.g8 --name="$REPO_NAME"
 }
 
 #The template uses sbtAutoBuildPlugin which requires repository.yaml, licence.txt and an initial git local commit to compile.
@@ -103,7 +104,7 @@ run_test() {
 local_tear_down() {
   print "INFO: Tearing down local environment"
   print "INFO: Stopping SM profile"
-  sm --stop PLATFORM_EXAMPLE_UI_TESTS
+  sm2 --stop PLATFORM_EXAMPLE_UI_TESTS
 
   print "INFO: Stopping Mongo container"
   docker stop mongo
