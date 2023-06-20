@@ -77,7 +77,7 @@ setup_sandbox() {
 
 generate_repo_from_template() {
   print "INFO: Using performance-testing-template.g8 to generate new test repository: $REPO_NAME."
-  g8 file:///$TEMPLATE_DIRECTORY --name="$REPO_NAME"
+  sbt new file:///$TEMPLATE_DIRECTORY --name="$REPO_NAME"
 }
 
 #The template uses sbtAutoBuildPlugin which requires repository.yaml, licence.txt and an initial git local commit to compile.
