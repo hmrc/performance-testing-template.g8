@@ -65,8 +65,8 @@ setup_sandbox() {
   print "INFO: Running 'SBT clean' command to clean the target folder"
   sbt clean
 
-  print "INFO: Setting TEMPLATE_DIRECTORY as $PWD"
   TEMPLATE_DIRECTORY=$PWD
+  print "INFO: Setting TEMPLATE_DIRECTORY as $TEMPLATE_DIRECTORY"
   SANDBOX="$TEMPLATE_DIRECTORY/target/sandbox"
   REPO_NAME="example-performance-test"
 
@@ -77,7 +77,9 @@ setup_sandbox() {
 
 generate_repo_from_template() {
   print "INFO: Using performance-testing-template.g8 to generate new test repository: $REPO_NAME."
-  g8 file:///$TEMPLATE_DIRECTORY --name="$REPO_NAME"
+  # ensure template ends with `.g8` (which is not the case for Jenkins pr-builders) otherwise `sbt new` with fail with "Template not found"
+  ln -s $TEMPLATE_DIRECTORY $TEMPLATE_DIRECTORY.g8
+  sbt new file:///$TEMPLATE_DIRECTORY.g8 --name="$REPO_NAME"
 }
 
 #The template uses sbtAutoBuildPlugin which requires repository.yaml, licence.txt and an initial git local commit to compile.
