@@ -5,7 +5,6 @@
 # Prerequisite:
 # The script expects the following to be installed already:
 # - Service Manager
-# - Giter8
 #
 # What does the script do?
 # - When the TEST_ENVIRONMENT variable is set to 'local', the script sets up and tears down the local environment by:
