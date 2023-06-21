@@ -29,7 +29,7 @@ Instructions to install giter8 can be found in the official [setup page](http://
 ### Generating a Performance Test project from main
 To generate a test suite, execute the following command in the parent directory of where you'd like your Performance Test project created:
     
-    g8 hmrc/performance-testing-template.g8
+    sbt new hmrc/performance-testing-template.g8
 
 This will prompt you for:
 - **name** -> The name of the performance test repository.  I.e. my-digital-service-performance-tests
@@ -61,7 +61,7 @@ To contribute to the performance-testing-template you'll need to test your chang
 ### Generating a Performance Test project from you local changes
 To create a test project from your local changes, execute the following command from the parent directory of your local copy of the template:
 
-    g8 file://performance-testing-template.g8/ --name=my-test-project
+    sbt new file://performance-testing-template.g8/ --name=my-test-project
 
 This will create a new performance test project in a folder named `my-test-project/`.  
  
