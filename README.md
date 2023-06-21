@@ -21,7 +21,7 @@ If you'd like to contribute we welcome you to raise a PR or issue against the pr
 > The below instructions are only to create a repository locally.
 
 You **DO NOT** need to clone this project to generate a performance test project from the template. You simply need to have
-giter8 installed, and run the `g8` command below.
+sbt installed, and run the `sbt new` command below.
 
 ### Install giter8 CLI 
 Instructions to install giter8 can be found in the official [setup page](http://www.foundweekends.org/giter8/setup.html).
