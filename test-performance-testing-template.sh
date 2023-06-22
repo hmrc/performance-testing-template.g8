@@ -51,12 +51,12 @@ local_setup() {
   if docker ps | grep "mongo"; then
     print "INFO: Mongo container is already running"
   else
-    docker run --rm -d --name mongo -p 27017:27017 mongo:4.0
+    docker run --rm -d -p 27017:27017 --name mongo mongo:4.4
     print "INFO: Mongo container started"
   fi
 
   print "INFO: Starting SM profile"
-  sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
+  sm2 --start PLATFORM_EXAMPLE_UI_TESTS
 }
 
 #Creates a sandbox folder to generate test repository
@@ -104,7 +104,7 @@ run_test() {
 local_tear_down() {
   print "INFO: Tearing down local environment"
   print "INFO: Stopping SM profile"
-  sm --stop PLATFORM_EXAMPLE_UI_TESTS
+  sm2 --stop PLATFORM_EXAMPLE_UI_TESTS
 
   print "INFO: Stopping Mongo container"
   docker stop mongo
