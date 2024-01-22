@@ -43,7 +43,7 @@ To execute the example tests, follow the steps in the project README.md
 To execute the example tests, follow the steps in the project README.md
 
 ### A Note on the Example Requests
-The example tests created by this template use the vat-flat-rate-calculator-frontend as an example service.  They are provided to show how to quickly get up and running using the performance testing template. These tests depend on the services in the `PLATFORM_EXAMPLE_UI_TESTS` being available:
+The example tests created by this template use the vat-flat-rate-calculator-frontend as an example service.  They are provided to show how to quickly get up and running using the performance testing template. These tests depend on the services in the `PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS` being available:
 
     ASSETS_FRONTEND
     KEYSTORE
