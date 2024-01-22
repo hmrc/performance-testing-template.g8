@@ -56,7 +56,7 @@ local_setup() {
   fi
 
   print "INFO: Starting SM profile"
-  sm2 --start PLATFORM_EXAMPLE_UI_TESTS
+  sm2 --start PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS
 }
 
 #Creates a sandbox folder to generate test repository
@@ -104,7 +104,7 @@ run_test() {
 local_tear_down() {
   print "INFO: Tearing down local environment"
   print "INFO: Stopping SM profile"
-  sm2 --stop PLATFORM_EXAMPLE_UI_TESTS
+  sm2 --stop PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS
 
   print "INFO: Stopping Mongo container"
   docker stop mongo

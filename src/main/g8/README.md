@@ -14,10 +14,10 @@ Start Mongo Docker container as follows:
 docker run --rm -d -p 27017:27017 --name mongo mongo:4.4
 ```
 
-Start `PLATFORM_EXAMPLE_UI_TESTS` services as follows:
+Start `PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS` services as follows:
 
 ```bash
-sm2 --start PLATFORM_EXAMPLE_UI_TESTS
+sm2 --start PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS
 ```
 
 ### Logging
