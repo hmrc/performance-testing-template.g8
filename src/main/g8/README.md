@@ -8,11 +8,7 @@ Performance test suite for the `<digital service name>`, using [performance-test
 
 ### Services
 
-Start Mongo Docker container as follows:
-
-```bash
-docker run --rm -d -p 27017:27017 --name mongo mongo:4.4
-```
+Start Mongo Docker container following instructions from the [MDTP Handbook](https://docs.tax.service.gov.uk/mdtp-handbook/documentation/developer-set-up/set-up-mongodb.html).
 
 Start `PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS` services as follows:
 
