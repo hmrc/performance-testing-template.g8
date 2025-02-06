@@ -30,83 +30,91 @@
 
 TEST_ENVIRONMENT=$1
 
-print() {
+log_message() {
   echo
-  echo -----------------------------------------------------------------------------------------------------------------
-  echo $1
-  echo -----------------------------------------------------------------------------------------------------------------
+  echo "-----------------------------------------------------------------------------------------------------------------"
+  echo "$1"
+  echo "-----------------------------------------------------------------------------------------------------------------"
   echo
 }
 
 if [[ "$TEST_ENVIRONMENT" == "ci" || "$TEST_ENVIRONMENT" == "local" ]]; then
-  print "INFO: Testing performance-testing-template.g8 in $TEST_ENVIRONMENT"
+  log_message "INFO: Testing performance-testing-template.g8 in $TEST_ENVIRONMENT"
 else
-  print "ERROR: TEST_ENVIRONMENT variable is required. Should be one of ci or local"
+  log_message "ERROR: TEST_ENVIRONMENT variable is required. Should be one of ci or local"
   exit 1
 fi
 
 local_setup() {
-  print "INFO: Setting up local environment"
-  print "INFO: Starting Mongo container"
+  log_message "INFO: Setting up local environment"
+  log_message "INFO: Starting Mongo container"
   if docker ps | grep "mongo"; then
-    print "INFO: Mongo container is already running"
+    log_message "INFO: Mongo container is already running"
   else
-    docker run --rm -d -p 27017:27017 --name mongo mongo:4.4
-    print "INFO: Mongo container started"
+    docker run --rm -d -p 27017:27017 --name mongo mongo:6.0
+    log_message "INFO: Mongo container started"
   fi
 
-  print "INFO: Starting SM profile"
+  log_message "INFO: Starting SM2 profile"
   sm2 --start PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS
 }
 
-#Creates a sandbox folder to generate test repository
 setup_sandbox() {
-  print "INFO: Running 'SBT clean' command to clean the target folder"
-  sbt clean
+  log_message "INFO: Running 'SBT clean' command to clean the target folder"
+  sbt clean || exit 1
 
-  TEMPLATE_DIRECTORY=$PWD
-  print "INFO: Setting TEMPLATE_DIRECTORY as $TEMPLATE_DIRECTORY"
+  TEMPLATE_DIRECTORY=$(pwd)
   SANDBOX="$TEMPLATE_DIRECTORY/target/sandbox"
-  REPO_NAME="example-performance-test"
 
-  print "INFO: Creating folder: $SANDBOX"
-  mkdir -p $SANDBOX
-  cd $SANDBOX
+  log_message "INFO: Creating folder: $SANDBOX"
+  mkdir -p "$SANDBOX"
 }
 
 generate_repo_from_template() {
-  print "INFO: Using performance-testing-template.g8 to generate new test repository: $REPO_NAME."
-  # ensure template ends with `.g8` (which is not the case for Jenkins pr-builders) otherwise `sbt new` with fail with "Template not found"
-  ln -s $TEMPLATE_DIRECTORY $TEMPLATE_DIRECTORY.g8
-  sbt new file:///$TEMPLATE_DIRECTORY.g8 --name="$REPO_NAME"
+  log_message "INFO: Using platform-test-ui-journey-tests-template.g8 to generate new test repository: test-repo."
+
+  TEMPLATE_PATH="file://$TEMPLATE_DIRECTORY"
+  REPO_NAME="test-repo"
+
+  log_message "INFO: Changing directory to sandbox: $SANDBOX"
+  cd "$SANDBOX" || exit 1
+
+  log_message "INFO: Generating new test repository from Giter8 template..."
+  sbt new "$TEMPLATE_PATH" --name="$REPO_NAME"
+
+  log_message "INFO: Test repository created successfully!"
+  ls -l "$REPO_NAME"
 }
 
-#The template uses sbtAutoBuildPlugin which requires repository.yaml, licence.txt and an initial git local commit to compile.
-initialize_repo() {
-  print "INFO: Initializing repository for sbtAutoBuildPlugin with repository.yaml, licence.txt and an initial git commit"
-  cd "$SANDBOX"/"$REPO_NAME"
-  cp $TEMPLATE_DIRECTORY/repository.yaml .
-  cp $TEMPLATE_DIRECTORY/LICENSE .
-  git init
-  git add .
-  git commit -m "initial commit"
+initialise_repo() {
+  log_message "INFO: Initialising repository for sbtAutoBuildPlugin with repository.yaml, LICENSE, and an initial git commit"
+
+  cd "$SANDBOX/$REPO_NAME" || exit 1
+  cp "$TEMPLATE_DIRECTORY/repository.yaml" .
+  cp "$TEMPLATE_DIRECTORY/LICENSE" .
+
+  git init || exit 1
+  git add . || exit 1
+  git commit -m "Initial commit" || exit 1
+
+  log_message "INFO: Repository successfully initialised."
 }
 
 run_test() {
-  print "INFO: Changing Directory to "$SANDBOX"/"$REPO_NAME""
-  cd "$SANDBOX"/"$REPO_NAME"
+  log_message "INFO: Changing Directory to $SANDBOX/$REPO_NAME"
+  cd "$SANDBOX/$REPO_NAME" || exit 1
 
-  print "INFO: Test 1 :: STARTING: $REPO_NAME tests"
+  log_message "INFO: Test 1 :: STARTING: $REPO_NAME tests"
   sbt -Dperftest.runSmokeTest=true -DrunLocal=true gatling:test
-  print "INFO: Test 1 :: COMPLETED: $REPO_NAME tests"
+  log_message "INFO: Test 1 :: COMPLETED: $REPO_NAME tests"
 }
 
 local_tear_down() {
-  print "INFO: Tearing down local environment"
-  print "INFO: Stopping SM profile"
+  log_message "INFO: Tearing down local environment"
+  log_message "INFO: Stopping SM profile"
   sm2 --stop PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS
 
-  print "INFO: Stopping Mongo container"
+  log_message "INFO: Stopping Mongo container"
   docker stop mongo
 }
 
@@ -115,7 +123,7 @@ if [ "$TEST_ENVIRONMENT" = "local" ]; then
 fi
 setup_sandbox
 generate_repo_from_template
-initialize_repo
+initialise_repo
 run_test
 if [ "$TEST_ENVIRONMENT" = "local" ]; then
   local_tear_down
