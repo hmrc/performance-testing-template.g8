@@ -4,9 +4,9 @@
 This repository can be used by teams who are in need of a performance test suite. 
 
 The performance-testing-template.g8 is developed and tested using:
-* Java 1.8
-* Scala 2.13.10
-* sbt 1.3.12
+* Java 21.0.4
+* Scala 2.13.12
+* sbt 1.9.9
 
 ## Support
 This repository is supported by HMRC Digital's Test Community. If you have a query or find an issue please drop in to the #community-testing channel in Slack.
