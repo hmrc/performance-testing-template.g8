@@ -24,13 +24,13 @@ object ExampleRequests extends ServicesConfiguration {
   val postVatReturnPeriod: HttpRequestBuilder =
     http("Post VAT return Period")
       .post(s"\$baseUrl\$route/vat-return-period": String)
-      .formParam("vatReturnPeriod", s"\$\${vatReturnPeriod}")
-      .formParam("csrfToken", s"\$\${csrfToken}")
+      .formParam("vatReturnPeriod", s"#{vatReturnPeriod}")
+      .formParam("csrfToken", s"#{csrfToken}")
       .check(status.is(303))
       .check(header("Location").is("/check-your-vat-flat-rate/turnover").saveAs("turnOverPage"))
 
   val getTurnoverPage: HttpRequestBuilder =
     http("Get Turnover Page")
-      .get(s"\$baseUrl\$\${turnOverPage}": String)
+      .get(s"\$baseUrl#{turnOverPage}": String)
       .check(status.is(200))
 }
