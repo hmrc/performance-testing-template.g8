@@ -51,12 +51,17 @@ local_setup() {
   if docker ps | grep "mongo"; then
     print "INFO: Mongo container is already running"
   else
-    docker run --rm -d -p 27017:27017 --name mongo mongo:4.4
+    #to use for intel mac/ linux machines
+    docker run --restart unless-stopped --name mongodb -p 27017:27017 -d percona/percona-server-mongodb:7.0 --replSet rs0
+    #to use for apple silicon based mac
+    #docker run --restart unless-stopped --name mongodb -p 27017:27017 -d percona/percona-server-mongodb:7.0-multi --replSet rs0
     print "INFO: Mongo container started"
+    docker exec -it mongodb mongosh --eval "rs.initiate();"
+    print "INFO: Mongodb replica set configured"
   fi
 
   print "INFO: Starting SM profile"
-  sm2 --start PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS
+  sm2 --start PLATFORM_TEST_EXAMPLE_UI_TESTS
 }
 
 #Creates a sandbox folder to generate test repository
@@ -79,6 +84,16 @@ generate_repo_from_template() {
   # ensure template ends with `.g8` (which is not the case for Jenkins pr-builders) otherwise `sbt new` with fail with "Template not found"
   ln -s $TEMPLATE_DIRECTORY $TEMPLATE_DIRECTORY.g8
   sbt new file:///$TEMPLATE_DIRECTORY.g8 --name="$REPO_NAME"
+  #the above for CI only and below for local only
+  #    if [[ "$TEMPLATE_DIRECTORY" =~ \.g8$ ]]; then
+  #      TEMPLATE_PATH="$TEMPLATE_DIRECTORY"
+  #    else
+  #      if [[ ! -e "$TEMPLATE_DIRECTORY.g8" ]]; then
+  #        ln -s "$TEMPLATE_DIRECTORY" "$TEMPLATE_DIRECTORY.g8"
+  #      fi
+  #      TEMPLATE_PATH="$TEMPLATE_DIRECTORY.g8"
+  #    fi
+  #    sbt new file:///$TEMPLATE_PATH --name="$REPO_NAME"
 }
 
 #The template uses sbtAutoBuildPlugin which requires repository.yaml, licence.txt and an initial git local commit to compile.
@@ -104,10 +119,11 @@ run_test() {
 local_tear_down() {
   print "INFO: Tearing down local environment"
   print "INFO: Stopping SM profile"
-  sm2 --stop PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS
+  sm2 --stop PLATFORM_TEST_EXAMPLE_UI_TESTS
 
-  print "INFO: Stopping Mongo container"
-  docker stop mongo
+ # not sure about stopping commented out for now.
+ # print "INFO: Stopping Mongo container"
+ # docker stop mongo
 }
 
 if [ "$TEST_ENVIRONMENT" = "local" ]; then
